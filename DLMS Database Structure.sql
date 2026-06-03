@@ -2,7 +2,7 @@
 -- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: sql104.infinityfree.com
+-- Host: localhost
 -- Generation Time: May 04, 2026 at 07:32 AM
 -- Server version: 11.4.10-MariaDB
 -- PHP Version: 7.2.22
@@ -19,7 +19,7 @@ SET time_zone = "+05:30";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `if0_41356077_libsys`
+-- Database: `librarydb`
 --
 
 -- --------------------------------------------------------

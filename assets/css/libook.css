@@ -1,0 +1,214 @@
+/* =============================================
+   DLMS — Listed Books / Manage Books Styles
+   ============================================= */
+
+.page-container-books {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.page-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    flex-wrap: wrap;
+    gap: .6rem;
+}
+
+.page-title h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text-main);
+    letter-spacing: -.02em;
+}
+
+/* ── Book Grid ── */
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.book-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow .2s;
+}
+
+.book-card:hover { box-shadow: var(--shadow-md); }
+
+.book-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    background: var(--bg-hover);
+}
+
+.book-info {
+    padding: .8rem;
+    flex: 1;
+}
+
+.book-info h3 {
+    font-size: .88rem;
+    font-weight: 700;
+    margin-bottom: .25rem;
+    line-height: 1.35;
+    color: var(--text-main);
+}
+
+.book-info p {
+    font-size: .77rem;
+    color: var(--text-muted);
+    margin: .15rem 0;
+}
+
+.book-category {
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+    font-size: .72rem;
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: .15rem .5rem;
+    border-radius: 99px;
+    font-weight: 600;
+    margin: .3rem 0;
+}
+
+.book-actions {
+    padding: .7rem .8rem;
+    border-top: 1px solid var(--border-soft);
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+}
+
+/* ── Digital book card variant ── */
+.digi-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow .2s;
+}
+
+.digi-card:hover { box-shadow: var(--shadow-md); }
+
+.digi-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    background: linear-gradient(135deg, var(--accent), hsl(225,50%,38%));
+}
+
+/* ── Status labels ── */
+.overdue {
+    display: inline-block;
+    background: var(--danger-bg);
+    color: var(--danger);
+    padding: .2rem .6rem;
+    border-radius: 99px;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.returned {
+    display: inline-block;
+    background: var(--success-bg);
+    color: var(--success);
+    padding: .2rem .6rem;
+    border-radius: 99px;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.returnedDate {
+    font-size: .75rem;
+    color: var(--text-muted);
+}
+
+/* ── Pagination ── */
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    margin-top: 1rem;
+}
+
+.page-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 .6rem;
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    font-size: .85rem;
+    cursor: pointer;
+    background: var(--bg-card);
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: all .15s;
+    font-weight: 500;
+}
+
+.page-link:hover { background: var(--bg-hover); color: var(--text-main); text-decoration: none; }
+.page-link.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* ── Filter bar ── */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    margin-bottom: 1.2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    padding: .8rem;
+    align-items: center;
+}
+
+.filter-bar input,
+.filter-bar select {
+    flex: 1;
+    min-width: 150px;
+    padding: .55rem .85rem;
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    background: var(--bg-input);
+    color: var(--text-main);
+    font-size: .88rem;
+    outline: none;
+}
+
+.filter-bar input:focus,
+.filter-bar select:focus {
+    border-color: var(--border-focus);
+}
+
+.filter-bar button {
+    padding: .55rem 1.1rem;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: .88rem;
+    cursor: pointer;
+    transition: background .15s;
+    white-space: nowrap;
+}
+.filter-bar button:hover { background: var(--accent-hover); }

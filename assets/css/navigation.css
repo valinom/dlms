@@ -1,0 +1,144 @@
+/* =============================================
+   DLMS — Navigation / Sidebar Layout
+   ============================================= */
+
+/* ── Top nav bar ── */
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--topnav-height);
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-soft);
+    display: flex;
+    align-items: center;
+    padding: 0 1.2rem;
+    gap: 1rem;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+}
+
+.logo {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    padding: 0.4rem;
+    border-radius: 6px;
+    display: none;
+    transition: color 0.15s;
+}
+.menu-btn:hover { color: var(--text-main); }
+
+/* ── Sidebar ── */
+.sidebar {
+    position: fixed;
+    top: var(--topnav-height);
+    left: 0;
+    bottom: 0;
+    width: var(--sidebar-width);
+    background: var(--bg-card);
+    border-right: 1px solid var(--border-soft);
+    overflow-y: auto;
+    z-index: 90;
+    padding: 0.8rem 0.7rem 1.5rem;
+    transition: transform 0.28s ease;
+}
+
+/* ── Sidebar nav links ── */
+.menu-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.menu-group > a,
+.menu-group .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.65rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    font-weight: 500;
+}
+
+.menu-group > a:hover,
+.menu-group .dropdown-toggle:hover {
+    background: var(--bg-hover);
+    color: var(--text-main);
+    text-decoration: none;
+}
+
+/* —— Students Sidebar Active —— */
+.menu-group > a.nav-active {
+    background: var(--accent);
+    color: var(--text-nav);
+    font-weight: 600;
+}
+
+/* ── Main content area ── */
+.main {
+    margin-left: var(--sidebar-width);
+    margin-top: var(--topnav-height);
+    min-height: calc(100vh - var(--topnav-height));
+    padding: 1.6rem;
+}
+
+.page-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.page-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 1.4rem;
+    letter-spacing: -0.02em;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+    .menu-btn { display: flex; }
+
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    .sidebar.open {
+        transform: translateX(0);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 1rem;
+    }
+
+    .top-nav {
+        padding: 0 1rem;
+    }
+}
+
+/* ── Overlay for mobile sidebar ── */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.35);
+    z-index: 80;
+}
+.sidebar-overlay.show { display: block; }

@@ -1,0 +1,197 @@
+/* ================= DASHBOARD ================= */
+
+/* Sticky title inside card */
+.sticky-title {
+    margin-bottom: .6rem;
+}
+.sticky-title h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    color: var(--text-main);
+}
+.sticky-title h3 i { color: var(--accent); font-size: 1.1rem; }
+
+/* Scrollable area inside dash card */
+.scroll-box {
+    max-height: 220px;
+    overflow-y: auto;
+    padding-right: .2rem;
+    font-size: .88rem;
+}
+.scroll-box::-webkit-scrollbar { width: 4px; }
+.scroll-box::-webkit-scrollbar-thumb { background: var(--border-soft); border-radius: 4px; }
+
+.dashboard-grid {
+    margin: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.2rem;
+}
+
+/* DASH CARD */
+.dash-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: 18px;
+    padding: 1.2rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+/* CARD TITLE */
+.dash-card h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: .8rem;
+    color: var(--text-main);
+}
+
+.dash-card h3 i {
+    color: var(--accent);
+    font-size: 1.2rem;
+}
+
+/* CARD CONTENT */
+.dash-card p {
+    font-size: .95rem;
+    margin-bottom: .35rem;
+    color: var(--text-muted);
+}
+
+.dash-card p strong {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+/* CARD ACTIONS */
+.card-actions {
+    margin-top: .9rem;
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.card-actions a{
+    text-decoration: none;
+}
+
+/* LIST ROWS (TOP STUDENTS / DEPARTMENTS / CATEGORIES) */
+.list-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: .9rem;
+    padding: .35rem 0;
+    border-bottom: 1px dashed var(--border-soft);
+}
+
+.list-row:last-child {
+    border-bottom: none;
+}
+
+.list-row span {
+    color: var(--text-muted);
+}
+
+.list-row strong {
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* SCROLLABLE CARD */
+.scroll-card {
+    max-height: 270px;
+    overflow-y: auto;
+    padding-right: .4rem;
+}
+
+/* CUSTOM SCROLLBAR */
+.scroll-card::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scroll-card::-webkit-scrollbar-thumb {
+    background: var(--border-soft);
+    border-radius: 6px;
+}
+
+/* BADGE COLORS (REUSE ALERT STYLES) */
+.overdue {
+    color: hsl(0, 70%, 55%);
+    font-weight: 600;
+}
+
+.returned {
+    color: hsl(140, 60%, 40%);
+    font-weight: 600;
+}
+
+.between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sticky-title {
+    position: sticky;
+    top: 0;
+    background: var(--bg-card);
+    padding-bottom: .4rem;
+    z-index: 2;
+}
+
+.scroll-box {
+    max-height: 140px;
+    overflow-y: auto;
+}
+
+hr{
+    border: none;
+    border-top: 1px solid lightgray;
+}
+
+.between strong, .between .margin {
+    margin-right: 0.5rem;
+}
+
+.scroll-box::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scroll-box::-webkit-scrollbar-thumb {
+    background: var(--border-soft);
+    border-radius: 4px;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 600px) {
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dash-card {
+        padding: 1rem;
+    }
+
+    .dash-card h3 {
+        font-size: 1rem;
+    }
+
+    .card-actions {
+        flex-direction: column;
+    }
+
+    .card-actions .alert {
+        width: 100%;
+        text-align: center;
+    }
+}

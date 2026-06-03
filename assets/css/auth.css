@@ -1,0 +1,274 @@
+/* =============================================
+   DLMS — Auth / Form Styles
+   ============================================= */
+
+/* ── Form card ── */
+.form-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    padding: 2rem;
+    max-width: 560px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.form-card label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.4rem;
+}
+
+.form-card input,
+.form-card textarea,
+.form-card select {
+    width: 100%;
+    padding: 0.6rem 0.85rem;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-sm);
+    background: var(--bg-input);
+    color: var(--text-main);
+    font-size: 0.92rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    outline: none;
+}
+
+.form-card input:focus,
+.form-card textarea:focus,
+.form-card select:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px hsl(225,70%,55%,0.12);
+}
+
+.form-card input[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.form-card textarea { resize: vertical; min-height: 80px; }
+
+.form-card button[type="submit"],
+.form-card button[type="button"] {
+    margin-top: 0.6rem;
+    padding: 0.7rem 1.4rem;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.form-card button[type="submit"]:hover,
+.form-card button[type="button"]:hover { background: var(--accent-hover); }
+.form-card button:active               { transform: scale(0.98); }
+.form-card button:disabled             { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+/* ── Auth page (login/register) ── */
+.auth-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 1.5rem;
+    background: var(--bg-main);
+}
+
+.auth-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem 2.2rem;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: var(--shadow-md);
+}
+
+.auth-logo {
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.03em;
+}
+
+.auth-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    margin-bottom: 1.8rem;
+}
+
+.auth-card label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+    margin-top: 0.8rem;
+}
+
+.auth-card input {
+    width: 100%;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-sm);
+    background: var(--bg-input);
+    color: var(--text-main);
+    font-size: 0.93rem;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+.auth-card input:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px hsl(225,70%,55%,0.12);
+}
+
+.auth-card .btn-submit {
+    width: 100%;
+    margin-top: 1.2rem;
+    padding: 0.75rem;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.auth-card .btn-submit:hover { background: var(--accent-hover); }
+
+.auth-links {
+    margin-top: 1.4rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+.auth-links a { color: var(--accent); font-weight: 600; }
+
+/* ── Image upload preview ── */
+.image-upload { position: relative; }
+
+.image-preview {
+    width: 100%;
+    height: 160px;
+    border: 2px dashed var(--border-soft);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    overflow: hidden;
+    margin-top: 0.4rem;
+    background: var(--bg-input);
+}
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* ── Info card (used in issue-book) ── */
+.info-card {
+    background: var(--bg-hover);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+}
+
+.info-box {
+    background: var(--bg-hover);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-sm);
+    padding: 0.55rem 0.9rem;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+/* ── Profile card ── */
+.profile-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    padding: 1.6rem;
+    max-width: 520px;
+    box-shadow: var(--shadow-sm);
+}
+
+.profile-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--border-soft);
+    font-size: 0.9rem;
+}
+.profile-row:last-of-type { border-bottom: none; }
+.profile-row span { color: var(--text-muted); font-size: 0.82rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+
+.profile-actions {
+    display: flex;
+    gap: 0.7rem;
+    margin-top: 1.2rem;
+}
+
+/* ── Auth card select (native fallback) ── */
+.auth-card select {
+    width: 100%;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-sm);
+    background: var(--bg-input);
+    color: var(--text-main);
+    font-size: 0.93rem;
+    outline: none;
+    appearance: auto;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+.auth-card select:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px hsl(225,70%,55%,0.12);
+}
+
+/* ── Auth card submit button full-width ── */
+.auth-card .btn-submit {
+    width: 100%;
+    margin-top: 1.2rem;
+    padding: 0.75rem;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: inherit;
+}
+.auth-card .btn-submit:hover  { background: var(--accent-hover); }
+.auth-card .btn-submit:active { transform: scale(0.98); }

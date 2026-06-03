@@ -1,0 +1,106 @@
+/* =============================================
+   DLMS — Design Tokens / CSS Variables
+   ============================================= */
+@import
+url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+    /* Accent */
+    --accent:          hsl(225, 40%, 55%);
+    --accent-hover:    hsl(225, 35%, 48%);
+    --accent-light:    hsl(225, 70%, 95%);
+    --accent-muted:    hsl(225, 40%, 70%);
+
+    /* Backgrounds */
+    --bg-main:         #f4f6fb;
+    --bg-card:         #ffffff;
+    --bg-hover:        #f0f3fb;
+    --bg-input:        #f8f9fd;
+
+    /* Text */
+    --text-main:       #1a1f36;
+    --text-muted:      #6b7280;
+    --text-light:      #9ca3af;
+    --text-nav:        hsl(220, 25%, 98%);
+
+    /* Borders */
+    --border-soft:     #e5e7ef;
+    --border-focus:    hsl(225, 70%, 60%);
+
+    /* Status */
+    --success:         hsl(145, 55%, 40%);
+    --success-bg:      hsl(145, 55%, 95%);
+    --danger:          hsl(0, 65%, 50%);
+    --danger-bg:       hsl(0, 65%, 96%);
+    --warning:         hsl(38, 90%, 48%);
+    --warning-bg:      hsl(38, 90%, 95%);
+    --info:            hsl(200, 70%, 45%);
+    --info-bg:         hsl(200, 70%, 95%);
+
+    /* Additional CSS */
+    --bg-sidebar:      #ffffff;
+    --bg-nav:          #ffffff;
+    --accent-soft:     hsl(225, 50%, 55%);
+
+    /* Shadows */
+    --shadow-sm:       0 1px 3px rgba(0,0,0,.07);
+    --shadow-md:       0 4px 16px rgba(0,0,0,.09);
+    --shadow-lg:       0 8px 32px rgba(0,0,0,.12);
+
+    /* Layout */
+    --sidebar-width:   240px;
+    --topnav-height:   56px;
+    --radius:          12px;
+    --radius-sm:       8px;
+    --radius-lg:       16px;
+}
+
+* {
+    -webkit-tap-highlight-color: transparent !important;
+}
+button, 
+a {
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; color-scheme: light only; }
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    background: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+img { max-width: 100%; height: auto; display: block; }
+
+input, textarea, select, button {
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border-soft);
+    margin: 0.5rem 0;
+}
+
+/* ── Typography helpers ── */
+.muted    { color: var(--text-muted); font-size: 0.85rem; }
+.between  { display: flex; justify-content: space-between; align-items: center; }
+.center   { display: flex; justify-content: center; gap: 0.5rem;}
+.margin   { margin-left: auto; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-soft); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-muted); }

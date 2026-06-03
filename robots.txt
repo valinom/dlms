@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /superuser/
+Disallow: /ajax/
+Disallow: /includes/
+Disallow: /uploads/
+
+Sitemap: https://dlms.rf.gd/sitemap.xml

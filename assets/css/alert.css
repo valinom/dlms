@@ -1,0 +1,76 @@
+/* =============================================
+   DLMS — Alert / Badge Components
+   ============================================= */
+
+/* ── Base alert button/link ── */
+.alert {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: filter 0.15s, transform 0.1s;
+    white-space: nowrap;
+}
+
+.alert:hover {
+    filter: brightness(0.92);
+    text-decoration: none;
+}
+
+.alert:active { transform: scale(0.97); }
+
+/* Variants */
+.alert.success {
+    background: var(--success-bg);
+    color: var(--success);
+    border: 1px solid hsl(145,40%,78%);
+}
+.alert.danger {
+    background: var(--danger-bg);
+    color: var(--danger);
+    border: 1px solid hsl(0,50%,82%);
+}
+.alert.warning {
+    background: var(--warning-bg);
+    color: hsl(38,80%,32%);
+    border: 1px solid hsl(38,60%,76%);
+}
+.alert.info {
+    background: var(--info-bg);
+    color: var(--info);
+    border: 1px solid hsl(200,55%,76%);
+}
+.alert.primary {
+    background: var(--accent);
+    color: #fff;
+    border: 1px solid var(--accent-hover);
+}
+.alert.secondary {
+    background: var(--bg-hover);
+    color: var(--text-muted);
+    border: 1px solid var(--border-soft);
+}
+
+/* ── Badge ── */
+.badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 99px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+.badge.success { background: var(--success-bg); color: var(--success); }
+.badge.danger  { background: var(--danger-bg);  color: var(--danger);  }
+.badge.warning { background: var(--warning-bg); color: hsl(38,80%,32%); }
+.badge.info    { background: var(--info-bg);    color: var(--info);    }
+.badge.out     { background: var(--danger-bg);  color: var(--danger);  }
+.badge.active  { background: var(--success-bg); color: var(--success); }
+.badge.blocked { background: var(--danger-bg);  color: var(--danger);  }

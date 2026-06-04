@@ -7,7 +7,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_set_cookie_params([
         'lifetime' => 60 * 60 * 24 * 30,
         'path'     => '/',
-//         'domain'   => 'website domain', //uncomment if needed
+        'domain'   => 'website domain',
         'secure'   => true,
         'httponly' => true,
         'samesite' => 'Lax',

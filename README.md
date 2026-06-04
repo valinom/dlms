@@ -104,6 +104,28 @@ Or use **phpMyAdmin → Import** if you're on shared hosting.
 
 ---
 
+## 📂 Create Required Upload Folders
+
+GitHub cannot track empty folders, so these directories are **not included** in the repo. You must create them manually on your server after cloning:
+
+```bash
+mkdir -p uploads/books
+mkdir -p uploads/documents
+```
+
+Or create them manually via your hosting file manager:
+
+```
+dlms/
+└── uploads/
+    ├── books/       ← book cover images are stored here
+    └── documents/   ← uploaded book PDF/doc files go here
+```
+
+> **Without these folders, file uploads will fail silently.** Make sure they exist before testing any upload features.
+
+---
+
 ## 🌐 Server Requirements
 
 | Requirement | Minimum Version |
@@ -152,6 +174,7 @@ dlms/
 - [ ] Set `APP_URL` to your actual domain in `includes/mailer.php`
 - [ ] Update contact email in `about.php` line 424
 - [ ] Import the SQL schema into your database
+- [ ] Create `uploads/books/` and `uploads/documents/` folders on the server
 - [ ] Ensure `mod_rewrite` is enabled on Apache
 - [ ] Deploy over HTTPS (required for secure session cookies)
 - [ ] Remove or restrict access to any test/debug files

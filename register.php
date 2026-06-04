@@ -8,6 +8,29 @@ if (!empty($_SESSION['admin_id'])) redirect('admin/dashboard.php');
 $step  = $_SESSION['reg_step'] ?? 1;
 $error = '';
 
+/* ── Cancel via Back to Sign In link ── */
+if (isset($_GET['cancel']) && !empty($_SESSION['reg_user_id'])) {
+    $userId = (int)$_SESSION['reg_user_id'];
+    $pdo->prepare("DELETE FROM email_otps WHERE student_id = ?")->execute([$userId]);
+    $pdo->prepare("DELETE FROM students WHERE id = ? AND email_verified = 0")->execute([$userId]);
+    unset($_SESSION['reg_step'], $_SESSION['reg_user_id'], $_SESSION['reg_email'], $_SESSION['reg_otp'], $_SESSION['reg_msg']);
+    redirect('index.php');
+}
+
+/* ── Clear stale OTP session after 10 minutes ── */
+if ($step === 2 && !empty($_SESSION['reg_user_id'])) {
+    $otpRow = $pdo->prepare("SELECT expires_at FROM email_otps WHERE student_id = ? LIMIT 1");
+    $otpRow->execute([$_SESSION['reg_user_id']]);
+    $row = $otpRow->fetch();
+    if (!$row || strtotime($row['expires_at']) < time()) {
+        // OTP expired — wipe the unverified student record and reset to step 1
+        $pdo->prepare("DELETE FROM email_otps WHERE student_id = ?")->execute([$_SESSION['reg_user_id']]);
+        $pdo->prepare("DELETE FROM students WHERE id = ? AND email_verified = 0")->execute([$_SESSION['reg_user_id']]);
+        unset($_SESSION['reg_step'], $_SESSION['reg_user_id'], $_SESSION['reg_email'], $_SESSION['reg_otp']);
+        $step = 1;
+    }
+}
+
 /* ── STEP 1: Register ── */
 if (isset($_POST['register'])) {
     verify_csrf();
@@ -19,25 +42,49 @@ if (isset($_POST['register'])) {
     $password2 = $_POST['password2'] ?? '';
 
     if (!$fullname || !$email || !$mobile || !$dept_id || !$password) {
-        $error = 'All fields are required.';
+        $_SESSION['reg_error'] = 'All fields are required.';
+        $_SESSION['reg_old']   = compact('fullname','email','mobile','dept_id');
+        redirect('register.php');
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error = 'Invalid email address.';
+        $_SESSION['reg_error'] = 'Invalid email address.';
+        $_SESSION['reg_old']   = compact('fullname','email','mobile','dept_id');
+        redirect('register.php');
     } elseif (!preg_match('/^[0-9]{10}$/', $mobile)) {
-        $error = 'Please enter a valid mobile number (10 digits).';
+        $_SESSION['reg_error'] = 'Please enter a valid mobile number (10 digits).';
+        $_SESSION['reg_old']   = compact('fullname','email','mobile','dept_id');
+        redirect('register.php');
     } elseif (strlen($password) < 6) {
-        $error = 'Password must be at least 6 characters.';
+        $_SESSION['reg_error'] = 'Password must be at least 6 characters.';
+        $_SESSION['reg_old']   = compact('fullname','email','mobile','dept_id');
+        redirect('register.php');
     } elseif ($password !== $password2) {
-        $error = 'Passwords do not match.';
+        $_SESSION['reg_error'] = 'Passwords do not match.';
+        $_SESSION['reg_old']   = compact('fullname','email','mobile','dept_id');
+        redirect('register.php');
     } else {
-        $chk = $pdo->prepare("SELECT id FROM students WHERE email = ? LIMIT 1");
+        // Clean up unverified accounts whose OTP has expired (10 min window)
+        $pdo->prepare("
+            DELETE s FROM students s
+            LEFT JOIN email_otps o ON o.student_id = s.id
+            WHERE s.email_verified = 0
+              AND (o.expires_at IS NULL OR o.expires_at < NOW())
+        ")->execute();
+
+        $chk = $pdo->prepare("SELECT id, email_verified FROM students WHERE email = ? LIMIT 1");
         $chk->execute([$email]);
-        if ($chk->fetch()) {
-            $error = 'Email is already registered.';
+        $existingByEmail = $chk->fetch();
+        if ($existingByEmail) {
+            // Unverified but OTP still active — tell them to check their email
+            $_SESSION['reg_error'] = 'A verification email was already sent to this address. Please check your inbox or wait 10 minutes to try again.';
+            $_SESSION['reg_old']   = compact('fullname','email','mobile','dept_id');
+            redirect('register.php');
         } else {
             $chk2 = $pdo->prepare("SELECT id FROM students WHERE mobile = ? LIMIT 1");
             $chk2->execute([$mobile]);
             if ($chk2->fetch()) {
-                $error = 'Mobile number is already registered.';
+                $_SESSION['reg_error'] = 'Mobile number is already registered.';
+                $_SESSION['reg_old']   = compact('fullname','email','mobile','dept_id');
+                redirect('register.php');
             } else {
                 $hash  = password_hash($password, PASSWORD_DEFAULT);
                 $otp   = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
@@ -76,7 +123,8 @@ if (isset($_POST['verify_otp'])) {
         unset($_SESSION['reg_step'], $_SESSION['reg_user_id'], $_SESSION['reg_email'], $_SESSION['reg_otp']);
         redirect('index.php?registered=1');
     } else {
-        $error = 'Invalid OTP. Please check your email and try again.';
+        $_SESSION['reg_msg'] = ['type' => 'error', 'text' => 'Invalid OTP. Please check your email and try again.'];
+        redirect('register.php');
     }
 }
 
@@ -101,9 +149,11 @@ if (isset($_POST['resend_otp'])) {
 $step     = $_SESSION['reg_step'] ?? 1;
 $regEmail = $_SESSION['reg_email'] ?? '';
 $regMsg   = $_SESSION['reg_msg']   ?? null;
-unset($_SESSION['reg_msg']);
+$error    = $_SESSION['reg_error'] ?? '';
+$regOld   = $_SESSION['reg_old']   ?? [];
+unset($_SESSION['reg_msg'], $_SESSION['reg_error'], $_SESSION['reg_old']);
 $depts   = $pdo->query("SELECT id, name FROM departments ORDER BY name")->fetchAll();
-$oldDept = (int)($_POST['dept_id'] ?? 0);
+$oldDept = (int)($regOld['dept_id'] ?? 0);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -166,18 +216,18 @@ $oldDept = (int)($_POST['dept_id'] ?? 0);
     <form method="POST" id="regForm">
         <label>Full Name</label>
         <input type="text" name="fullname"
-               value="<?= e($_POST['fullname'] ?? '') ?>"
+               value="<?= e($regOld['fullname'] ?? '') ?>"
                autocomplete="name" placeholder="e.g. Maria Santos"
                style="text-transform:capitalize">
 
         <label>Email Address</label>
         <input type="email" name="email"
-               value="<?= e($_POST['email'] ?? '') ?>"
+               value="<?= e($regOld['email'] ?? '') ?>"
                autocomplete="email" placeholder="you@email.com">
 
         <label>Mobile Number</label>
         <input type="tel" name="mobile"
-               value="<?= e($_POST['mobile'] ?? '') ?>"
+               value="<?= e($regOld['mobile'] ?? '') ?>"
                autocomplete="tel" placeholder="987xxxxxxx">
 
         <label>Department</label>
@@ -291,7 +341,7 @@ function validateReg(e) {
     </form>
 
     <div class="auth-links" style="margin-top:1rem">
-        <a href="index.php"><i class="fa-solid fa-arrow-left fa-xs"></i> Back to Sign In</a>
+        <a href="register.php?cancel=1"><i class="fa-solid fa-arrow-left fa-xs"></i> Back to Sign In</a>
     </div>
 </div>
 

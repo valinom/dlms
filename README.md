@@ -26,7 +26,33 @@ define('DB_PASS', 'your_db_password'); // database password
 
 ---
 
-### 2. `includes/mailer.php` — Gmail SMTP (Email Sending)
+### 2. Session Cookie Domain — `includes/about.php` (or wherever `session_set_cookie_params` is called)
+
+The session cookie is hard-coded to a specific domain. **You must update the `domain` value** to match your own site, otherwise sessions will not work.
+
+Find this block (starts at **line 4**) in the file that initializes the session (e.g. `includes/about.php` or your session init file):
+
+```php
+session_set_cookie_params([
+    'lifetime' => 60 * 60 * 24 * 30,
+    'path'     => '/',
+    'domain'   => 'dlms.page.gd',   // ← CHANGE THIS to your domain
+    'secure'   => true,
+    'httponly' => true,
+    'samesite' => 'Lax',
+]);
+```
+
+Replace `'dlms.page.gd'` with your own domain, e.g.:
+```php
+'domain' => 'yourdomain.com',
+```
+
+> **Note:** `secure` is `true`, meaning cookies only work over **HTTPS**. On a local dev server (HTTP), either set `'secure' => false` temporarily, or use a tool like Laragon/XAMPP with a self-signed cert.
+
+---
+
+### 3. `includes/mailer.php` — Gmail SMTP (Email Sending)
 
 This system sends emails for registration, password reset, and notifications. It uses Gmail with an App Password.
 
@@ -46,6 +72,22 @@ define('APP_URL',        'https://your-domain.com'); // your live site URL (no t
 5. Copy the 16-character password and paste it into `SMTP_PASS`
 
 > **Never use your regular Gmail password here.** App Passwords are separate and can be revoked anytime.
+
+---
+
+### 4. `about.php` — Contact Email
+
+The contact email button is hard-coded at **line 424**:
+
+```html
+<a href="mailto:iconicmufassirul@gmail.com" class="mail-btn">
+```
+
+Replace `iconicmufassirul@gmail.com` with your own contact email:
+
+```html
+<a href="mailto:your_email@gmail.com" class="mail-btn">
+```
 
 ---
 
@@ -105,8 +147,10 @@ dlms/
 ## 🚀 Deployment Checklist
 
 - [ ] Set real DB credentials in `includes/config.php`
+- [ ] Update cookie `domain` to your domain in session init file (line 4)
 - [ ] Set Gmail address + App Password in `includes/mailer.php`
 - [ ] Set `APP_URL` to your actual domain in `includes/mailer.php`
+- [ ] Update contact email in `about.php` line 424
 - [ ] Import the SQL schema into your database
 - [ ] Ensure `mod_rewrite` is enabled on Apache
 - [ ] Deploy over HTTPS (required for secure session cookies)
@@ -124,5 +168,4 @@ For issues or questions, open a GitHub Issue or contact the repository owner.
 
 ## 📄 License
 
-This project is for academic/institutional use. Please contact before reusing or re
-distributing.
+This project is for academic/institutional use. Please contact the author before reusing or redistributing.

@@ -1,5 +1,20 @@
 # DLMS — Digital Library Management System
 
+> [!WARNING]
+> ### 🚫 Intellectual Property Notice
+> This work was developed as a Final Year Project at **Pandit Deendayal Upadhyaya Adarsha Mahavidyalaya (PDUAM), Dalgaon, Assam**. All rights to the source code, design architecture, and functional logic are held exclusively by the original authors.
+>
+> This repository is intended for **portfolio demonstration and academic submission purposes only**. Any attempt to pass this work off as one's own (plagiarism), or to utilize this codebase for commercial, production, or academic assessment purposes by third parties, is **strictly prohibited**.
+>
+> **If you intend to use, deploy, or adapt this project for any purpose outside of PDUAM Dalgaon — including public deployment, institutional use elsewhere, or any commercial purpose — you must contact the project coordinator before proceeding:**
+> 📧 [mufassirulclg@gmail.com](mailto:mufassirulclg@gmail.com)
+>
+> ---
+>
+> *Credits must remain intact in the application's About page at all times. Removing or altering the credits is not permitted.*
+>
+> **Copyright © 2025 Mufassirul Islam. All rights reserved.**
+
 A web-based Library Management System built with PHP, MariaDB/MySQL, and PHPMailer-compatible SMTP. Designed for institutional use.
 
 ---
